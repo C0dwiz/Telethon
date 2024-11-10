@@ -14,20 +14,24 @@ if typing.TYPE_CHECKING:
 
 
 class AuthMethods:
-
     # region Public methods
 
     def start(
-            self: 'TelegramClient',
-            phone: typing.Union[typing.Callable[[], str], str] = lambda: input('Please enter your phone (or bot token): '),
-            password: typing.Union[typing.Callable[[], str], str] = lambda: getpass.getpass('Please enter your password: '),
-            *,
-            bot_token: str = None,
-            force_sms: bool = False,
-            code_callback: typing.Callable[[], typing.Union[str, int]] = None,
-            first_name: str = 'New User',
-            last_name: str = '',
-            max_attempts: int = 3) -> 'TelegramClient':
+        self: "TelegramClient",
+        phone: typing.Union[typing.Callable[[], str], str] = lambda: input(
+            "Please enter your phone (or bot token): "
+        ),
+        password: typing.Union[typing.Callable[[], str], str] = lambda: getpass.getpass(
+            "Please enter your password: "
+        ),
+        *,
+        bot_token: str = None,
+        force_sms: bool = False,
+        code_callback: typing.Callable[[], typing.Union[str, int]] = None,
+        first_name: str = "New User",
+        last_name: str = "",
+        max_attempts: int = 3,
+    ) -> "TelegramClient":
         """
         Starts the client (connects and logs in if necessary).
 
@@ -98,20 +102,23 @@ class AuthMethods:
                     pass
         """
         if code_callback is None:
+
             def code_callback():
-                return input('Please enter the code you received: ')
+                return input("Please enter the code you received: ")
         elif not callable(code_callback):
             raise ValueError(
-                'The code_callback parameter needs to be a callable '
-                'function that returns the code you received by Telegram.'
+                "The code_callback parameter needs to be a callable "
+                "function that returns the code you received by Telegram."
             )
 
         if not phone and not bot_token:
-            raise ValueError('No phone number or bot token provided.')
+            raise ValueError("No phone number or bot token provided.")
 
         if phone and bot_token and not callable(phone):
-            raise ValueError('Both a phone and a bot token provided, '
-                             'must only provide one of either')
+            raise ValueError(
+                "Both a phone and a bot token provided, "
+                "must only provide one of either"
+            )
 
         coro = self._start(
             phone=phone,
@@ -121,16 +128,21 @@ class AuthMethods:
             code_callback=code_callback,
             first_name=first_name,
             last_name=last_name,
-            max_attempts=max_attempts
+            max_attempts=max_attempts,
         )
-        return (
-            coro if self.loop.is_running()
-            else self.loop.run_until_complete(coro)
-        )
+        return coro if self.loop.is_running() else self.loop.run_until_complete(coro)
 
     async def _start(
-            self: 'TelegramClient', phone, password, bot_token, force_sms,
-            code_callback, first_name, last_name, max_attempts):
+        self: "TelegramClient",
+        phone,
+        password,
+        bot_token,
+        force_sms,
+        code_callback,
+        first_name,
+        last_name,
+        max_attempts,
+    ):
         if not self.is_connected():
             await self.connect()
 
@@ -144,17 +156,17 @@ class AuthMethods:
             if bot_token:
                 # bot_token's first part has the bot ID, but it may be invalid
                 # so don't try to parse as int (instead cast our ID to string).
-                if bot_token[:bot_token.find(':')] != str(me.id):
+                if bot_token[: bot_token.find(":")] != str(me.id):
                     warnings.warn(
-                        'the session already had an authorized user so it did '
-                        'not login to the bot account using the provided '
-                        'bot_token (it may not be using the user you expect)'
+                        "the session already had an authorized user so it did "
+                        "not login to the bot account using the provided "
+                        "bot_token (it may not be using the user you expect)"
                     )
             elif phone and not callable(phone) and utils.parse_phone(phone) != me.phone:
                 warnings.warn(
-                    'the session already had an authorized user so it did '
-                    'not login to the user account using the provided '
-                    'phone (it may not be using the user you expect)'
+                    "the session already had an authorized user so it did "
+                    "not login to the user account using the provided "
+                    "phone (it may not be using the user you expect)"
                 )
 
             return self
@@ -166,7 +178,7 @@ class AuthMethods:
                 if inspect.isawaitable(value):
                     value = await value
 
-                if ':' in value:
+                if ":" in value:
                     # Bot tokens have 'user_id:access_hash' format
                     bot_token = value
                     break
@@ -200,17 +212,18 @@ class AuthMethods:
             except errors.SessionPasswordNeededError:
                 two_step_detected = True
                 break
-            except (errors.PhoneCodeEmptyError,
-                    errors.PhoneCodeExpiredError,
-                    errors.PhoneCodeHashEmptyError,
-                    errors.PhoneCodeInvalidError):
-                print('Invalid code. Please try again.', file=sys.stderr)
+            except (
+                errors.PhoneCodeEmptyError,
+                errors.PhoneCodeExpiredError,
+                errors.PhoneCodeHashEmptyError,
+                errors.PhoneCodeInvalidError,
+            ):
+                print("Invalid code. Please try again.", file=sys.stderr)
 
             attempts += 1
         else:
             raise RuntimeError(
-                '{} consecutive sign-in attempts failed. Aborting'
-                .format(max_attempts)
+                "{} consecutive sign-in attempts failed. Aborting".format(max_attempts)
             )
 
         if two_step_detected:
@@ -230,22 +243,25 @@ class AuthMethods:
                         me = await self.sign_in(phone=phone, password=value)
                         break
                     except errors.PasswordHashInvalidError:
-                        print('Invalid password. Please try again',
-                              file=sys.stderr)
+                        print("Invalid password. Please try again", file=sys.stderr)
                 else:
                     raise errors.PasswordHashInvalidError(request=None)
             else:
                 me = await self.sign_in(phone=phone, password=password)
 
         # We won't reach here if any step failed (exit by exception)
-        signed, name = 'Signed in successfully as ', utils.get_display_name(me)
-        tos = '; remember to not break the ToS or you will risk an account ban!'
+        signed, name = "Signed in successfully as ", utils.get_display_name(me)
+        tos = "; remember to not break the ToS or you will risk an account ban!"
         try:
-            print(signed, name, tos, sep='')
+            print(signed, name, tos, sep="")
         except UnicodeEncodeError:
             # Some terminals don't support certain characters
-            print(signed, name.encode('utf-8', errors='ignore')
-                              .decode('ascii', errors='ignore'), tos, sep='')
+            print(
+                signed,
+                name.encode("utf-8", errors="ignore").decode("ascii", errors="ignore"),
+                tos,
+                sep="",
+            )
 
         return self
 
@@ -255,24 +271,23 @@ class AuthMethods:
         """
         phone = utils.parse_phone(phone) or self._phone
         if not phone:
-            raise ValueError(
-                'Please make sure to call send_code_request first.'
-            )
+            raise ValueError("Please make sure to call send_code_request first.")
 
         phone_hash = phone_hash or self._phone_code_hash.get(phone, None)
         if not phone_hash:
-            raise ValueError('You also need to provide a phone_code_hash.')
+            raise ValueError("You also need to provide a phone_code_hash.")
 
         return phone, phone_hash
 
     async def sign_in(
-            self: 'TelegramClient',
-            phone: str = None,
-            code: typing.Union[str, int] = None,
-            *,
-            password: str = None,
-            bot_token: str = None,
-            phone_code_hash: str = None) -> 'typing.Union[types.User, types.auth.SentCode]':
+        self: "TelegramClient",
+        phone: str = None,
+        code: typing.Union[str, int] = None,
+        *,
+        password: str = None,
+        bot_token: str = None,
+        phone_code_hash: str = None,
+    ) -> "typing.Union[types.User, types.auth.SentCode]":
         """
         Logs in to Telegram to an existing user or bot account.
 
@@ -329,14 +344,11 @@ class AuthMethods:
         if phone and not code and not password:
             return await self.send_code_request(phone)
         elif code:
-            phone, phone_code_hash = \
-                self._parse_phone_and_hash(phone, phone_code_hash)
+            phone, phone_code_hash = self._parse_phone_and_hash(phone, phone_code_hash)
 
             # May raise PhoneCodeEmptyError, PhoneCodeExpiredError,
             # PhoneCodeHashEmptyError or PhoneCodeInvalidError.
-            request = functions.auth.SignInRequest(
-                phone, phone_code_hash, str(code)
-            )
+            request = functions.auth.SignInRequest(phone, phone_code_hash, str(code))
         elif password:
             pwd = await self(functions.account.GetPasswordRequest())
             request = functions.auth.CheckPasswordRequest(
@@ -344,13 +356,15 @@ class AuthMethods:
             )
         elif bot_token:
             request = functions.auth.ImportBotAuthorizationRequest(
-                flags=0, bot_auth_token=bot_token,
-                api_id=self.api_id, api_hash=self.api_hash
+                flags=0,
+                bot_auth_token=bot_token,
+                api_id=self.api_id,
+                api_hash=self.api_hash,
             )
         else:
             raise ValueError(
-                'You must provide a phone and a code the first time, '
-                'and a password only if an RPCError was raised before.'
+                "You must provide a phone and a code the first time, "
+                "and a password only if an RPCError was raised before."
             )
 
         try:
@@ -367,18 +381,21 @@ class AuthMethods:
         return await self._on_login(result.user)
 
     async def sign_up(
-            self: 'TelegramClient',
-            code: typing.Union[str, int],
-            first_name: str,
-            last_name: str = '',
-            *,
-            phone: str = None,
-            phone_code_hash: str = None) -> 'types.User':
+        self: "TelegramClient",
+        code: typing.Union[str, int],
+        first_name: str,
+        last_name: str = "",
+        *,
+        phone: str = None,
+        phone_code_hash: str = None,
+    ) -> "types.User":
         """
         This method can no longer be used, and will immediately raise a ``ValueError``.
         See `issue #4050 <https://github.com/LonamiWebs/Telethon/issues/4050>`_ for context.
         """
-        raise ValueError('Third-party applications cannot sign up for Telegram. See https://github.com/LonamiWebs/Telethon/issues/4050 for details')
+        raise ValueError(
+            "Third-party applications cannot sign up for Telegram. See https://github.com/LonamiWebs/Telethon/issues/4050 for details"
+        )
 
     async def _on_login(self, user):
         """
@@ -390,16 +407,22 @@ class AuthMethods:
         self._authorized = True
 
         state = await self(functions.updates.GetStateRequest())
-        self._message_box.load(SessionState(0, 0, 0, state.pts, state.qts, int(state.date.timestamp()), state.seq, 0), [])
+        self._message_box.load(
+            SessionState(
+                0, 0, 0, state.pts, state.qts, int(state.date.timestamp()), state.seq, 0
+            ),
+            [],
+        )
 
         return user
 
     async def send_code_request(
-            self: 'TelegramClient',
-            phone: str,
-            *,
-            force_sms: bool = False,
-            _retry_count: int = 0) -> 'types.auth.SentCode':
+        self: "TelegramClient",
+        phone: str,
+        *,
+        force_sms: bool = False,
+        _retry_count: int = 0,
+    ) -> "types.auth.SentCode":
         """
         Sends the Telegram code needed to login to the given phone number.
 
@@ -422,7 +445,7 @@ class AuthMethods:
                 print(sent)
         """
         if force_sms:
-            warnings.warn('force_sms has been deprecated and no longer works')
+            warnings.warn("force_sms has been deprecated and no longer works")
             force_sms = False
 
         result = None
@@ -431,17 +454,21 @@ class AuthMethods:
 
         if not phone_hash:
             try:
-                result = await self(functions.auth.SendCodeRequest(
-                    phone, self.api_id, self.api_hash, types.CodeSettings()))
+                result = await self(
+                    functions.auth.SendCodeRequest(
+                        phone, self.api_id, self.api_hash, types.CodeSettings()
+                    )
+                )
             except errors.AuthRestartError:
                 if _retry_count > 2:
                     raise
                 return await self.send_code_request(
-                    phone, force_sms=force_sms, _retry_count=_retry_count+1)
+                    phone, force_sms=force_sms, _retry_count=_retry_count + 1
+                )
 
             # TODO figure out when/if/how this can happen
             if isinstance(result, types.auth.SentCodeSuccess):
-                raise RuntimeError('logged in right after sending the code')
+                raise RuntimeError("logged in right after sending the code")
 
             # If we already sent a SMS, do not resend the code (hash may be empty)
             if isinstance(result.type, types.auth.SentCodeTypeSms):
@@ -457,8 +484,7 @@ class AuthMethods:
 
         if force_sms:
             try:
-                result = await self(
-                    functions.auth.ResendCodeRequest(phone, phone_hash))
+                result = await self(functions.auth.ResendCodeRequest(phone, phone_hash))
             except errors.PhoneCodeExpiredError:
                 if _retry_count > 2:
                     raise
@@ -467,16 +493,19 @@ class AuthMethods:
                     "Phone code expired in ResendCodeRequest, requesting a new code"
                 )
                 return await self.send_code_request(
-                    phone, force_sms=False, _retry_count=_retry_count+1)
+                    phone, force_sms=False, _retry_count=_retry_count + 1
+                )
 
             if isinstance(result, types.auth.SentCodeSuccess):
-                raise RuntimeError('logged in right after resending the code')
+                raise RuntimeError("logged in right after resending the code")
 
             self._phone_code_hash[phone] = result.phone_code_hash
 
         return result
 
-    async def qr_login(self: 'TelegramClient', ignored_ids: typing.List[int] = None) -> custom.QRLogin:
+    async def qr_login(
+        self: "TelegramClient", ignored_ids: typing.List[int] = None
+    ) -> custom.QRLogin:
         """
         Initiates the QR login procedure.
 
@@ -516,7 +545,7 @@ class AuthMethods:
         await qr_login.recreate()
         return qr_login
 
-    async def log_out(self: 'TelegramClient') -> bool:
+    async def log_out(self: "TelegramClient") -> bool:
         """
         Logs out Telegram and deletes the current ``*.session`` file.
 
@@ -545,13 +574,14 @@ class AuthMethods:
         return True
 
     async def edit_2fa(
-            self: 'TelegramClient',
-            current_password: str = None,
-            new_password: str = None,
-            *,
-            hint: str = '',
-            email: str = None,
-            email_code_callback: typing.Callable[[int], str] = None) -> bool:
+        self: "TelegramClient",
+        current_password: str = None,
+        new_password: str = None,
+        *,
+        hint: str = "",
+        email: str = None,
+        email_code_callback: typing.Callable[[int], str] = None,
+    ) -> bool:
         """
         Changes the 2FA settings of the logged in user.
 
@@ -609,7 +639,7 @@ class AuthMethods:
             return False
 
         if email and not callable(email_code_callback):
-            raise ValueError('email present without email_code_callback')
+            raise ValueError("email present without email_code_callback")
 
         pwd = await self(functions.account.GetPasswordRequest())
         pwd.new_algo.salt1 += os.urandom(32)
@@ -623,22 +653,23 @@ class AuthMethods:
             password = types.InputCheckPasswordEmpty()
 
         if new_password:
-            new_password_hash = pwd_mod.compute_digest(
-                pwd.new_algo, new_password)
+            new_password_hash = pwd_mod.compute_digest(pwd.new_algo, new_password)
         else:
-            new_password_hash = b''
+            new_password_hash = b""
 
         try:
-            await self(functions.account.UpdatePasswordSettingsRequest(
-                password=password,
-                new_settings=types.account.PasswordInputSettings(
-                    new_algo=pwd.new_algo,
-                    new_password_hash=new_password_hash,
-                    hint=hint,
-                    email=email,
-                    new_secure_settings=None
+            await self(
+                functions.account.UpdatePasswordSettingsRequest(
+                    password=password,
+                    new_settings=types.account.PasswordInputSettings(
+                        new_algo=pwd.new_algo,
+                        new_password_hash=new_password_hash,
+                        hint=hint,
+                        email=email,
+                        new_secure_settings=None,
+                    ),
                 )
-            ))
+            )
         except errors.EmailUnconfirmedError as e:
             code = email_code_callback(e.code_length)
             if inspect.isawaitable(code):
