@@ -1,8 +1,8 @@
 """
-Tests for `telethon.extensions.markdown`.
+Tests for `herokutl.extensions.markdown`.
 """
-from telethon.extensions import markdown
-from telethon.tl.types import MessageEntityBold, MessageEntityItalic, MessageEntityTextUrl
+from herokutl.extensions import markdown
+from herokutl.tl.types import MessageEntityBold, MessageEntityItalic, MessageEntityTextUrl
 
 
 def test_entity_edges():

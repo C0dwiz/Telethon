@@ -27,7 +27,7 @@ Let's start things with an example to automate replies:
 
 .. code-block:: python
 
-    from telethon import TelegramClient, events
+    from herokutl import TelegramClient, events
 
     client = TelegramClient('anon', api_id, api_hash)
 
@@ -45,7 +45,7 @@ Let's break it down:
 
 .. code-block:: python
 
-    from telethon import TelegramClient, events
+    from herokutl import TelegramClient, events
 
     client = TelegramClient('anon', api_id, api_hash)
 
@@ -60,7 +60,7 @@ Nothing we don't know already.
 
 This Python decorator will attach itself to the ``my_event_handler``
 definition, and basically means that *on* a `NewMessage
-<telethon.events.newmessage.NewMessage>` *event*,
+<herokutl.events.newmessage.NewMessage>` *event*,
 the callback function you're about to define will be called:
 
 .. code-block:: python
@@ -71,15 +71,15 @@ the callback function you're about to define will be called:
 
 
 If a `NewMessage
-<telethon.events.newmessage.NewMessage>` event occurs,
+<herokutl.events.newmessage.NewMessage>` event occurs,
 and ``'hello'`` is in the text of the message, we `reply()
-<telethon.tl.custom.message.Message.reply>` to the event
+<herokutl.tl.custom.message.Message.reply>` to the event
 with a ``'hi!'`` message.
 
 .. note::
 
     Event handlers **must** be ``async def``. After all,
-    Telethon is an asynchronous library based on `asyncio`,
+    herokutl is an asynchronous library based on `asyncio`,
     which is a safer and often faster approach to threads.
 
     You **must** ``await`` all method calls that use
@@ -124,7 +124,7 @@ With the ``r'(?i).*heck'`` regex, we match case-insensitive
 can learn more at https://regexone.com/.
 
 So far, we have only seen the `NewMessage
-<telethon.events.newmessage.NewMessage>`, but there are many more
+<herokutl.events.newmessage.NewMessage>`, but there are many more
 which will be covered later. This is only a small introduction to updates.
 
 Entities

@@ -13,7 +13,7 @@ What are Sessions?
 ==================
 
 The first parameter you pass to the constructor of the
-:ref:`TelegramClient <telethon-client>` is
+:ref:`TelegramClient <herokutl-client>` is
 the ``session``, and defaults to be the session name (or full path). That is,
 if you create a ``TelegramClient('anon')`` instance and connect, an
 ``anon.session`` file will be created in the working directory.
@@ -56,25 +56,25 @@ be noticeable, in which case you can also use a different storage. Note that
 this is rare and most people won't have this issue, but it's worth a mention.
 
 To use a custom session storage, simply pass the custom session instance to
-:ref:`TelegramClient <telethon-client>` instead of
+:ref:`TelegramClient <herokutl-client>` instead of
 the session name.
 
-Telethon contains three implementations of the abstract ``Session`` class:
+herokutl contains three implementations of the abstract ``Session`` class:
 
-.. currentmodule:: telethon.sessions
+.. currentmodule:: herokutl.sessions
 
 * `MemorySession <memory.MemorySession>`: stores session data within memory.
 * `SQLiteSession <sqlite.SQLiteSession>`: stores sessions within on-disk SQLite databases. Default.
 * `StringSession <string.StringSession>`: stores session data within memory,
   but can be saved as a string.
 
-You can import these ``from telethon.sessions``. For example, using the
+You can import these ``from herokutl.sessions``. For example, using the
 `StringSession <string.StringSession>` is done as follows:
 
 .. code-block:: python
 
-    from telethon.sync import TelegramClient
-    from telethon.sessions import StringSession
+    from herokutl.sync import TelegramClient
+    from herokutl.sessions import StringSession
 
     with TelegramClient(StringSession(string), api_id, api_hash) as client:
         ...  # use the client
@@ -94,13 +94,13 @@ You can import these ``from telethon.sessions``. For example, using the
 
 There are other community-maintained implementations available:
 
-* `SQLAlchemy <https://github.com/tulir/telethon-session-sqlalchemy>`_:
+* `SQLAlchemy <https://github.com/tulir/herokutl-session-sqlalchemy>`_:
   stores all sessions in a single database via SQLAlchemy.
 
-* `Redis <https://github.com/ezdev128/telethon-session-redis>`_:
+* `Redis <https://github.com/ezdev128/herokutl-session-redis>`_:
   stores all sessions in a single Redis data store.
 
-* `MongoDB <https://github.com/watzon/telethon-session-mongo>`_:
+* `MongoDB <https://github.com/watzon/herokutl-session-mongo>`_:
   stores the current session in a MongoDB database.
 
 
@@ -111,7 +111,7 @@ The easiest way to create your own storage implementation is to use
 `MemorySession <memory.MemorySession>` as the base and check out how
 `SQLiteSession <sqlite.SQLiteSession>` or one of the community-maintained
 implementations work. You can find the relevant Python files under the
-``sessions/`` directory in the Telethon's repository.
+``sessions/`` directory in the herokutl's repository.
 
 After you have made your own implementation, you can add it to the
 community-maintained session implementation list above with a pull request.
@@ -129,8 +129,8 @@ The easiest way to generate a string session is as follows:
 
 .. code-block:: python
 
-    from telethon.sync import TelegramClient
-    from telethon.sessions import StringSession
+    from herokutl.sync import TelegramClient
+    from herokutl.sessions import StringSession
 
     with TelegramClient(StringSession(), api_id, api_hash) as client:
         print(client.session.save())

@@ -2,7 +2,7 @@
 branch = true
 parallel = true
 source =
-    telethon
+    herokutl
 
 [report]
 precision = 2

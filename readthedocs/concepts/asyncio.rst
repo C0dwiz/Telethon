@@ -22,7 +22,7 @@ APIs such as Telegram's makes a lot of sense this way.
 Why asyncio?
 ============
 
-Asynchronous IO makes a lot of sense in a library like Telethon.
+Asynchronous IO makes a lot of sense in a library like herokutl.
 You send a request to the server (such as "get some message"), and
 thanks to `asyncio`, your code won't block while a response arrives.
 
@@ -58,21 +58,21 @@ The code samples below assume that you have Python 3.7 or greater installed.
     asyncio.run(main())
 
 
-What does telethon.sync do?
+What does herokutl.sync do?
 ===========================
 
 The moment you import any of these:
 
 .. code-block:: python
 
-    from telethon import sync, ...
+    from herokutl import sync, ...
     # or
-    from telethon.sync import ...
+    from herokutl.sync import ...
     # or
-    import telethon.sync
+    import herokutl.sync
 
 The ``sync`` module rewrites most ``async def``
-methods in Telethon to something similar to this:
+methods in herokutl to something similar to this:
 
 .. code-block:: python
 
@@ -241,7 +241,7 @@ the new event loop for you:
 
 
 Generally, **you don't need threads** unless you know what you're doing.
-Just create another task, as shown above. If you're using the Telethon
+Just create another task, as shown above. If you're using the herokutl
 with a library that uses threads, you must be careful to use `threading.Lock`
 whenever you use the client, or enable the compatible mode. For that, see
 :ref:`compatibility-and-convenience`.
@@ -261,7 +261,7 @@ client.run_until_disconnected() blocks!
 =======================================
 
 All of what `client.run_until_disconnected()
-<telethon.client.updates.UpdateMethods.run_until_disconnected>` does is
+<herokutl.client.updates.UpdateMethods.run_until_disconnected>` does is
 run the `asyncio`'s event loop until the client is disconnected. That means
 *the loop is running*. And if the loop is running, it will run all the tasks
 in it. So if you want to run *other* code, create tasks for it:
@@ -281,11 +281,11 @@ in it. So if you want to run *other* code, create tasks for it:
 
 This creates a task for a clock that prints the time every second.
 You don't need to use `client.run_until_disconnected()
-<telethon.client.updates.UpdateMethods.run_until_disconnected>` either!
+<herokutl.client.updates.UpdateMethods.run_until_disconnected>` either!
 You just need to make the loop is running, somehow. `loop.run_forever()
 <asyncio.loop.run_forever()>` and `loop.run_until_complete()
 <asyncio.loop.run_until_complete>` can also be used to run
-the loop, and Telethon will be happy with any approach.
+the loop, and herokutl will be happy with any approach.
 
 Of course, there are better tools to run code hourly or daily, see below.
 
@@ -295,7 +295,7 @@ What else can asyncio do?
 
 Asynchronous IO is a really powerful tool, as we've seen. There are plenty
 of other useful libraries that also use `asyncio` and that you can integrate
-with Telethon.
+with herokutl.
 
 * `aiohttp <https://github.com/aio-libs/aiohttp>`_ is like the infamous
   `requests <https://github.com/requests/requests/>`_ but asynchronous.
@@ -354,9 +354,9 @@ functionality by default. This means you can set up all your event
 handlers and start the client without worrying about loops at all.
 
 Using the client in a ``with`` block, `start
-<telethon.client.auth.AuthMethods.start>`, `run_until_disconnected
-<telethon.client.updates.UpdateMethods.run_until_disconnected>`, and
-`disconnect <telethon.client.telegrambaseclient.TelegramBaseClient.disconnect>`
+<herokutl.client.auth.AuthMethods.start>`, `run_until_disconnected
+<herokutl.client.updates.UpdateMethods.run_until_disconnected>`, and
+`disconnect <herokutl.client.telegrambaseclient.TelegramBaseClient.disconnect>`
 all support this.
 
 Where can I read more?

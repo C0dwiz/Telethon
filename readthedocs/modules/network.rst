@@ -1,4 +1,4 @@
-.. _telethon-network:
+.. _herokutl-network:
 
 ================
 Connection Modes
@@ -7,27 +7,27 @@ Connection Modes
 The only part about network that you should worry about are
 the different connection modes, which are the following:
 
-.. automodule:: telethon.network.connection.tcpfull
+.. automodule:: herokutl.network.connection.tcpfull
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.network.connection.tcpabridged
+.. automodule:: herokutl.network.connection.tcpabridged
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.network.connection.tcpintermediate
+.. automodule:: herokutl.network.connection.tcpintermediate
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.network.connection.tcpobfuscated
+.. automodule:: herokutl.network.connection.tcpobfuscated
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.network.connection.http
+.. automodule:: herokutl.network.connection.http
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,7 +6,7 @@ Project Structure
 Main interface
 ==============
 
-The library itself is under the ``telethon/`` directory. The
+The library itself is under the ``herokutl/`` directory. The
 ``__init__.py`` file there exposes the main ``TelegramClient``, a class
 that servers as a nice interface with the most commonly used methods on
 Telegram such as sending messages, retrieving the message history,
@@ -36,8 +36,8 @@ their body, if they're further encrypted).
 Auto-generated code
 ===================
 
-The files under ``telethon_generator/`` are used to generate the code
-that gets placed under ``telethon/tl/``. The parsers take in files in
+The files under ``herokutl_generator/`` are used to generate the code
+that gets placed under ``herokutl/tl/``. The parsers take in files in
 a specific format (such as ``.tl`` for objects and ``.json`` for errors)
 and spit out the generated classes which represent, as Python classes,
 the request and types defined in the ``.tl`` file. It also constructs

@@ -4,7 +4,7 @@
 Compatibility and Convenience
 =============================
 
-Telethon is an `asyncio` library. Compatibility is an important concern,
+herokutl is an `asyncio` library. Compatibility is an important concern,
 and while it can't always be kept and mistakes happens, the :ref:`changelog`
 is there to tell you when these important changes happen.
 
@@ -17,11 +17,11 @@ Compatibility
 Some decisions when developing will inevitable be proven wrong in the future.
 One of these decisions was using threads. Now that Python 3.4 is reaching EOL
 and using `asyncio` is usable as of Python 3.5 it makes sense for a library
-like Telethon to make a good use of it.
+like herokutl to make a good use of it.
 
 If you have old code, **just use old versions** of the library! There is
 nothing wrong with that other than not getting new updates or fixes, but
-using a fixed version with ``pip install telethon==0.19.1.6`` is easy
+using a fixed version with ``pip install herokutl==0.19.1.6`` is easy
 enough to do.
 
 You might want to consider using `Virtual Environments
@@ -39,8 +39,8 @@ need to start migrating really old code:
 
 .. code-block:: python
 
-    # 1. Import the client from telethon.sync
-    from telethon.sync import TelegramClient
+    # 1. Import the client from herokutl.sync
+    from herokutl.sync import TelegramClient
 
     # 2. Change this monster...
     try:
@@ -84,9 +84,9 @@ Convenience
 
     .. code-block:: python
 
-        from telethon import TelegramClient, sync
+        from herokutl import TelegramClient, sync
         # or
-        from telethon.sync import TelegramClient
+        from herokutl.sync import TelegramClient
 
     This makes the examples shorter and easier to think about.
 
@@ -96,7 +96,7 @@ to be a powerful hybrid for running under the Python REPL too.
 
 .. code-block:: python
 
-    from telethon.sync import TelegramClient
+    from herokutl.sync import TelegramClient
     #            ^~~~~ note this part; it will manage the asyncio loop for you
 
     with TelegramClient(...) as client:
@@ -112,7 +112,7 @@ to be a powerful hybrid for running under the Python REPL too.
         # You can also have an hybrid between a synchronous
         # part and asynchronous event handlers.
         #
-        from telethon import events
+        from herokutl import events
         @client.on(events.NewMessage(pattern='(?i)hi|hello'))
         async def handler(event):
             await event.reply('hey')
@@ -138,12 +138,12 @@ Speed
 
 When you're ready to micro-optimize your application, or if you simply
 don't need to call any non-basic methods from a synchronous context,
-just get rid of ``telethon.sync`` and work inside an ``async def``:
+just get rid of ``herokutl.sync`` and work inside an ``async def``:
 
 .. code-block:: python
 
     import asyncio
-    from telethon import TelegramClient, events
+    from herokutl import TelegramClient, events
 
     async def main():
         async with TelegramClient(...) as client:
@@ -164,7 +164,7 @@ just get rid of ``telethon.sync`` and work inside an ``async def``:
     asyncio.run(main())
 
 
-The ``telethon.sync`` magic module essentially wraps every method behind:
+The ``herokutl.sync`` magic module essentially wraps every method behind:
 
 .. code-block:: python
 
@@ -178,7 +178,7 @@ Learning
 
 You know the library uses `asyncio` everywhere, and you want to learn
 how to do things right. Even though `asyncio` is its own topic, the
-documentation wants you to learn how to use Telethon correctly, and for
+documentation wants you to learn how to use herokutl correctly, and for
 that, you need to use `asyncio` correctly too. For this reason, there
 is a section called :ref:`mastering-asyncio` that will introduce you to
 the `asyncio` world, with links to more resources for learning how to

@@ -1,8 +1,8 @@
 # Generated code
-/telethon/tl/functions/
-/telethon/tl/types/
-/telethon/tl/alltlobjects.py
-/telethon/errors/rpcerrorlist.py
+/herokutl/tl/functions/
+/herokutl/tl/types/
+/herokutl/tl/alltlobjects.py
+/herokutl/errors/rpcerrorlist.py
 
 # User session
 *.session

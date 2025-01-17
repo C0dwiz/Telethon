@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Telethon documentation build configuration file, created by
+# herokutl documentation build configuration file, created by
 # sphinx-quickstart on Fri Nov 17 15:36:11 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.abspath(os.pardir))
 
 root = os.path.abspath(os.path.join(__file__, os.path.pardir, os.path.pardir))
 
-tl_ref_url = 'https://tl.telethon.dev'
+tl_ref_url = 'https://tl.herokutl.dev'
 
 # -- General configuration ------------------------------------------------
 
@@ -64,7 +64,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Telethon'
+project = 'herokutl'
 copyright = '2017 - 2019, Lonami'
 author = 'Lonami'
 
@@ -73,7 +73,7 @@ author = 'Lonami'
 # built documents.
 #
 # The short X.Y version.
-with open(os.path.join(root, 'telethon', 'version.py'), 'r') as f:
+with open(os.path.join(root, 'herokutl', 'version.py'), 'r') as f:
     version = re.search(r"^__version__\s+=\s+'(.*)'$",
                         f.read(), flags=re.MULTILINE).group(1)
 
@@ -156,7 +156,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Telethondoc'
+htmlhelp_basename = 'herokutldoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -183,7 +183,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Telethon.tex', 'Telethon Documentation',
+    (master_doc, 'herokutl.tex', 'herokutl Documentation',
      author, 'manual'),
 ]
 
@@ -193,7 +193,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'telethon', 'Telethon Documentation',
+    (master_doc, 'herokutl', 'herokutl Documentation',
      [author], 1)
 ]
 
@@ -204,8 +204,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Telethon', 'Telethon Documentation',
-     author, 'Telethon', 'One line description of project.',
+    (master_doc, 'herokutl', 'herokutl Documentation',
+     author, 'herokutl', 'One line description of project.',
      'Miscellaneous'),
 ]
 

@@ -2,7 +2,7 @@
 Helpers
 =======
 
-.. automodule:: telethon.helpers
+.. automodule:: herokutl.helpers
     :members:
     :undoc-members:
     :show-inheritance:

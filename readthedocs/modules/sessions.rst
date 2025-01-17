@@ -1,4 +1,4 @@
-.. _telethon-sessions:
+.. _herokutl-sessions:
 
 ========
 Sessions
@@ -6,22 +6,22 @@ Sessions
 
 These are the different built-in session storage that you may subclass.
 
-.. automodule:: telethon.sessions.abstract
+.. automodule:: herokutl.sessions.abstract
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.sessions.memory
+.. automodule:: herokutl.sessions.memory
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.sessions.sqlite
+.. automodule:: herokutl.sessions.sqlite
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.sessions.string
+.. automodule:: herokutl.sessions.string
     :members:
     :undoc-members:
     :show-inheritance:

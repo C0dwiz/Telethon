@@ -8,7 +8,7 @@ use these if possible.
 
 .. code-block:: python
 
-    from telethon import TelegramClient
+    from herokutl import TelegramClient
 
     # Remember to use your own values from my.telegram.org!
     api_id = 12345
@@ -41,7 +41,7 @@ use these if possible.
         # ...to your contacts
         await client.send_message('+34600123123', 'Hello, friend!')
         # ...or even to any username
-        await client.send_message('username', 'Testing Telethon!')
+        await client.send_message('username', 'Testing herokutl!')
 
         # You can, of course, use markdown in your messages:
         message = await client.send_message(
@@ -84,7 +84,7 @@ proceeding. We will see all the available methods later on.
 
 .. important::
 
-    Note that Telethon is an asynchronous library, and as such, you should
+    Note that herokutl is an asynchronous library, and as such, you should
     get used to it and learn a bit of basic `asyncio`. This will help a lot.
     As a quick start, this means you generally want to write all your code
     inside some ``async def`` like so:
@@ -106,6 +106,6 @@ proceeding. We will see all the available methods later on.
         with client:
             client.loop.run_until_complete(main())
 
-    After you understand this, you may use the ``telethon.sync`` hack if you
+    After you understand this, you may use the ``herokutl.sync`` hack if you
     want do so (see :ref:`compatibility-and-convenience`), but note you may
     run into other issues (iPython, Anaconda, etc. have some issues with it).

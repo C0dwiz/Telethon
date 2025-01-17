@@ -1,14 +1,14 @@
 """
-tests for telethon.helpers
+tests for herokutl.helpers
 """
 
 from base64 import b64decode
 
 import pytest
 
-from telethon import helpers
-from telethon.utils import get_inner_text
-from telethon.tl.types import MessageEntityUnknown as Meu
+from herokutl import helpers
+from herokutl.utils import get_inner_text
+from herokutl.tl.types import MessageEntityUnknown as Meu
 
 
 def test_strip_text():

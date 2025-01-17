@@ -1,10 +1,10 @@
-.. _telethon-client:
+.. _herokutl-client:
 
 ==============
 TelegramClient
 ==============
 
-.. currentmodule:: telethon.client
+.. currentmodule:: herokutl.client
 
 The `TelegramClient <telegramclient.TelegramClient>` aggregates several mixin
 classes to provide all the common functionality in a nice, Pythonic interface.
@@ -14,7 +14,7 @@ Each mixin has its own methods, which you all can use.
 
 .. code-block:: python
 
-    from telethon import TelegramClient
+    from herokutl import TelegramClient
 
     client = TelegramClient(name, api_id, api_hash)
 
@@ -32,72 +32,72 @@ you can access all of their methods.
 
 See :ref:`client-ref` for a short summary.
 
-.. automodule:: telethon.client.telegramclient
+.. automodule:: herokutl.client.telegramclient
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.telegrambaseclient
+.. automodule:: herokutl.client.telegrambaseclient
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.account
+.. automodule:: herokutl.client.account
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.auth
+.. automodule:: herokutl.client.auth
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.bots
+.. automodule:: herokutl.client.bots
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.buttons
+.. automodule:: herokutl.client.buttons
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.chats
+.. automodule:: herokutl.client.chats
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.dialogs
+.. automodule:: herokutl.client.dialogs
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.downloads
+.. automodule:: herokutl.client.downloads
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.messageparse
+.. automodule:: herokutl.client.messageparse
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.messages
+.. automodule:: herokutl.client.messages
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.updates
+.. automodule:: herokutl.client.updates
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.uploads
+.. automodule:: herokutl.client.uploads
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: telethon.client.users
+.. automodule:: herokutl.client.users
     :members:
     :undoc-members:
     :show-inheritance:
